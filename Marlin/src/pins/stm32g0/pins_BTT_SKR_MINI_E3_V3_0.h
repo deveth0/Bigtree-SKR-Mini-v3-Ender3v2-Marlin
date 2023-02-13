@@ -21,8 +21,6 @@
  */
 #pragma once
 
-#include "env_validate.h"
-
 //#define BOARD_CUSTOM_BUILD_FLAGS -DTONE_CHANNEL=4 -DTONE_TIMER=4 -DTIMER_TONE=4
 
 #ifndef BOARD_INFO_NAME
