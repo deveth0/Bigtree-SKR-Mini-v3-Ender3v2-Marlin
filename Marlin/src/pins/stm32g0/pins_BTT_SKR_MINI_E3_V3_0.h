@@ -130,7 +130,8 @@
 //
 #define TEMP_0_PIN                          PA0   // Analog Input "TH0"
 #define TEMP_BED_PIN                        PC4   // Analog Input "TB0"
-
+// EDIT: Additional pin for TEMP CHAMBER
+#define TEMP_CHAMBER_PIN                    PA2 // TX2 connector
 //
 // Heaters / Fans
 //
@@ -138,7 +139,9 @@
 #define HEATER_BED_PIN                      PC9   // "HB"
 #define FAN_PIN                             PC6   // "FAN0"
 #define FAN1_PIN                            PC7   // "FAN1"
-#define FAN2_PIN                            PB15  // "FAN2"
+// EDIT: Fan moved to TFT header for chambers
+//#define FAN2_PIN                            PB15  // "FAN2"
+#define FAN2_PIN PA3 // "FAN2"
 
 /**
  *              SKR Mini E3 V3.0
