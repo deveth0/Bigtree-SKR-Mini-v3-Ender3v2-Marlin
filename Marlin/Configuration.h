@@ -1537,7 +1537,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -53, -30, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { -43, -14, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1748,16 +1748,16 @@
 // @section geometry
 
 // The size of the printable area
-#define X_BED_SIZE 231
-#define Y_BED_SIZE 228
+#define X_BED_SIZE 232
+#define Y_BED_SIZE 232
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#define X_MIN_POS 7
-#define Y_MIN_POS 7
+#define X_MIN_POS 0
+#define Y_MIN_POS -9
 #define Z_MIN_POS 0
 // Extended max to allow the probe to reach more of the bed.
 #define X_MAX_POS (X_BED_SIZE + X_MIN_POS) + 15
-#define Y_MAX_POS (Y_BED_SIZE + Y_MIN_POS)
+#define Y_MAX_POS (Y_BED_SIZE + Y_MIN_POS) + 3
 #define Z_MAX_POS 200
 //#define I_MIN_POS 0
 //#define I_MAX_POS 50
@@ -1992,7 +1992,7 @@
   /**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-  //#define G26_MESH_VALIDATION
+  #define G26_MESH_VALIDATION
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
     #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for G26.
