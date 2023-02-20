@@ -436,7 +436,7 @@ namespace ExtUI {
 
         case DGUS_HEADER2_SEEN: // Waiting for the length byte
           rx_datagram_len = DWIN_SERIAL.read();
-          //DEBUGLCDCOMM_ECHOPAIR(" (", rx_datagram_len, ") ");
+          //DEBUGLCDCOMM_ECHOPGM(" (", rx_datagram_len, ") ");
 
           // Telegram min len is 3 (command and one word of payload)
           rx_datagram_state = WITHIN(rx_datagram_len, 3, DGUS_RX_BUFFER_SIZE) ? DGUS_WAIT_TELEGRAM : DGUS_IDLE;
@@ -448,14 +448,14 @@ namespace ExtUI {
           Initialized = true; // We've talked to it, so we defined it as initialized.
           uint8_t command = DWIN_SERIAL.read();
 
-          //DEBUGLCDCOMM_ECHOPAIR("# ", command);
+          //DEBUGLCDCOMM_ECHOPGM("# ", command);
 
           uint8_t readlen = rx_datagram_len - 1; // command is part of len.
           uint8_t tmp[rx_datagram_len - 1];
           uint8_t *ptmp = tmp;
           while (readlen--) {
             receivedbyte = DWIN_SERIAL.read();
-            //DEBUGLCDCOMM_ECHOPAIR(" ", receivedbyte);
+            //DEBUGLCDCOMM_ECHOPGM(" ", receivedbyte);
             *ptmp++ = receivedbyte;
           }
           //DEBUGLCDCOMM_ECHOPGM(" # ");
@@ -1682,8 +1682,10 @@ namespace ExtUI {
                            | (Settings.display_sound         ? _BV(3) : 0)  // 3: audio
                            | (Settings.display_standby       ? _BV(2) : 0)  // 2: backlight on standby
                            | (Settings.screen_rotation == 10 ? _BV(1) : 0)  // 1 & 0: Inversion
-                           #if EITHER(MachineCR10Smart, MachineCR10SmartPro)
+                           #if LCD_SCREEN_ROTATE == 90
                              | _BV(0) // Portrait Mode or 800x480 display has 0 point rotated 90deg from 480x272 display
+                           #elif LCD_SCREEN_ROTATE
+                             #error "Only 90° rotation is supported for the selected LCD."
                            #endif
                            ;
 
@@ -2014,6 +2016,9 @@ namespace ExtUI {
   }
 
   #if ENABLED(POWER_LOSS_RECOVERY)
+    void onPowerLoss() {
+      // Called when power-loss state is detected
+    }
     void onPowerLossResume() {
       startprogress   = 254;
       InforShowStatus = true;
